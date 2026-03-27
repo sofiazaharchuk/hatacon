@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk" class="overflow-x-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЕЦП Підпис</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen overflow-x-hidden bg-slate-100 text-slate-900 antialiased md:h-screen md:overflow-hidden">
+  <div class="min-h-screen pb-24 md:h-full md:pb-28">
+  <main class="mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4 py-6 md:h-full md:py-10">
+    <section class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl shadow-slate-300/60 sm:p-8">
+      <h1 class="text-xl font-semibold sm:text-2xl">Підтвердження через ЕЦП</h1>
+      <p class="mt-2 text-sm text-slate-600">Крок 2 з 2 — завантажте файли вашого цифрового підпису.</p>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form action="{{ url('ecp-login') }}" method="post" enctype="multipart/form-data" class="mt-6 space-y-4">
+        {% if csrf_input is defined %}
+          {{ csrf_input }}
+        {% endif %}
+
+        <div>
+          <label for="signature" class="mb-1 block text-sm font-medium text-slate-700">Файл підпису</label>
+          <input
+            id="signature"
+            name="signature"
+            type="file"
+            required
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-emerald-400 transition focus:ring file:mr-3 file:rounded file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:text-sm file:font-medium"
+          >
+        </div>
+
+        <div>
+          <label for="certificate" class="mb-1 block text-sm font-medium text-slate-700">Сертифікат</label>
+          <input
+            id="certificate"
+            name="certificate"
+            type="file"
+            required
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-emerald-400 transition focus:ring file:mr-3 file:rounded file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:text-sm file:font-medium"
+          >
+        </div>
+
+        <div>
+          <label for="signed_data" class="mb-1 block text-sm font-medium text-slate-700">Підписані дані</label>
+          <input
+            id="signed_data"
+            name="signed_data"
+            type="file"
+            required
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none ring-emerald-400 transition focus:ring file:mr-3 file:rounded file:border-0 file:bg-slate-100 file:px-3 file:py-1 file:text-sm file:font-medium"
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="inline-flex w-full items-center justify-center rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
+        >
+          Підтвердити
+        </button>
+      </form>
+
+      <div class="mt-4 text-center text-sm text-slate-600">
+        <a href="{{ url('login') }}" class="font-semibold text-slate-900 hover:text-slate-700 transition">
+          ← Повернутися до входу
+        </a>
+      </div>
+    </section>
+  </main>
+  </div>
+  {% include 'partials/footer.html' %}
+</body>
+</html>

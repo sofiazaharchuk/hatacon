@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід — ECP Auth</title>
+</head>
+<body>
+    <h1>Вхід (крок 1 з 2)</h1>
+    <p>Введіть email та пароль. На наступному кроці потрібно завантажити підпис.</p>
+
+    {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+
+    <form method="post">
+        {{ csrf_input }}
+        {{ form.as_p() }}
+        <button type="submit">Далі</button>
+    </form>
+
+    <p>Немає акаунту? <a href="{{ url('register') }}">Зареєструватись</a></p>
+</body>
+</html>

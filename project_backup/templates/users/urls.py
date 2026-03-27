@@ -1,0 +1,22 @@
+"""URL configuration for users app."""
+
+from django.urls import include, path
+
+from templates.users.views import (
+    DashboardView,
+    DownloadPrivateKeyView,
+    LoginStep1View,
+    LogoutView,
+    RegisterSuccessView,
+    RegisterView,
+)
+
+urlpatterns = [
+    path('register/', RegisterView.as_view(), name='register'),
+    path('register/success/', RegisterSuccessView.as_view(), name='register-success'),
+    path('register/private-key.pem', DownloadPrivateKeyView.as_view(), name='download-private-key'),
+    path('login/', LoginStep1View.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('ecp/', include('django_ecp_auth.urls')),
+]
